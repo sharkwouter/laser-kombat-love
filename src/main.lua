@@ -3,11 +3,15 @@ function love.load()
   Object = require "libraries/classic"
 
   love.window.setMode(800, 600)
-  map = readfile()
+  level = 1
+  map = loadlevel(level)
 end
 
 function love.update(dt)
-
+  if love.keyboard.isDown("n") then
+    level = level + 1
+    map = loadlevel(level)
+  end
 end
 
 function love.draw()
@@ -20,21 +24,23 @@ function love.draw()
   end
 end
 
-function readfile()
-  filename = "levels/level001.lvl"
-  filesize = love.filesystem.getInfo(filename).size
-  file = love.filesystem.read(filename, all)
-
-  for b=1, filesize do
-    contents = string.byte(file, b)
-    print(b..": "..contents)
-  end
+function loadlevel(number)
+  filename = "levels/level"..string.format("%03d", number)..".lvl"
+  print(filename)
 
   map = {}
   x = 1
   y = 1
 
-  print("Filesize: "..filesize.." bytes")
+  --Make sure the file exists
+  info = love.filesystem.getInfo(filename)
+  if not info then
+    print(filename.." doesn't exist")
+    return map
+  end
+
+  --Load the whole file
+  file = love.filesystem.read(filename, all)
 
   --The bytes 9 until 1205 contain which parts of the level are water and which parts aren't
   for b=9, 1205 do
