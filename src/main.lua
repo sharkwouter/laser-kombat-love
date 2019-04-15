@@ -4,6 +4,7 @@ function love.load()
 
   love.window.setMode(800, 600)
   level = 1
+  love_version, _, _, _ = love.getVersion()
   map = loadlevel(level)
 end
 
@@ -33,10 +34,12 @@ function loadlevel(number)
   y = 1
 
   --Make sure the file exists
-  info = love.filesystem.getInfo(filename)
-  if not info then
-    print(filename.." doesn't exist")
-    return map
+  if love_version > 11 then
+    info = love.filesystem.getInfo(filename)
+    if not info then
+      print(filename.." doesn't exist")
+      return map
+    end
   end
 
   --Load the whole file
