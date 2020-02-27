@@ -6,6 +6,7 @@ function love.load()
   love.graphics.setFont(font)
 
   love.window.setMode(800, 600)
+  love.window.setTitle("Laser Kombat")
   level = 1
   love_version, _, _, _ = love.getVersion()
   blocks = {}
