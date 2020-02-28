@@ -64,7 +64,6 @@ function Level:drawTerrain()
     for y=1, #self.terrain[x] do
       if self.terrain[x][y] then
         love.graphics.draw(self.images.ground, groundQuad, (x-1)*40, (y-1)*40)
-        love.graphics.printf(x..","..y, (x-1)*40, (y-1)*40, 40, "left")
       end
     end
   end
@@ -122,16 +121,24 @@ function Level:loadObjects(file)
           table.insert(list, Nuke(x ,y, 0))
         elseif output == 7 then
           table.insert(list, Nuke(x ,y, 1))
-        elseif output == 8 then
-          table.insert(list, Mirror(x, y, 0, rotation))
+        elseif output == 9 then
+          table.insert(list, Tee(x, y, rotation))
         elseif output == 13 then
           table.insert(list, Bars(x, y, 0, 0))
         elseif output == 14 then
           table.insert(list, Bars(x, y, 0, 1))
+        elseif output == 15 then
+          table.insert(list, Bars(x, y, 0, 2))
+        elseif output == 8 then
+          table.insert(list, Mirror(x, y, 0, rotation))
         elseif output == 17 then
           table.insert(list, Mirror(x, y, 5, rotation))
         elseif output == 18 then
           table.insert(list, Mirror(x, y, 6, rotation))
+        elseif output == 19 then
+          table.insert(list, Bars(x, y, 1, 0))
+        elseif output == 20 then
+          table.insert(list, Bars(x, y, 1, 1))
         elseif output ~= 5 and output ~=1 then
           -- Don't execute this part for enemies, which are 5
           printText = string.format("%02d,%02d: %d", x, y, output)

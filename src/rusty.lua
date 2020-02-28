@@ -8,7 +8,6 @@ function Rusty:new(x, y, rustyType)
     self.type = 0
   elseif self.type > 8 then
     self.animated = true
-    print(self.type)
     self.type = self.type - 5
   else
     self.animated = false

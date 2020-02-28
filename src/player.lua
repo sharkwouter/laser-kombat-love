@@ -18,6 +18,11 @@ function Player:new(x, y)
     right = love.graphics.newQuad(40*self.directions.right, 0, 40, 40, self.image:getDimensions()),
     down = love.graphics.newQuad(40*self.directions.down, 0, 40, 40, self.image:getDimensions())
   }
+
+  self.respawn = {
+      x = self.x,
+      y = self.y
+    }
 end
 
 function Player:draw()
