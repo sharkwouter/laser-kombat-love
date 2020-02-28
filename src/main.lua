@@ -33,6 +33,16 @@ end
 
 function love.update(dt)
   level:update(dt)
+  -- Move the player character
+  if love.keyboard.isDown("left") then
+    level:movePlayer(0)
+  elseif love.keyboard.isDown("up") then
+    level:movePlayer(1)
+  elseif love.keyboard.isDown("right") then
+    level:movePlayer(2)
+  elseif love.keyboard.isDown("down") then
+    level:movePlayer(3)
+  end
   if not pressed then
     pressed = false
   end
@@ -60,16 +70,6 @@ function love.update(dt)
   
   if love.keyboard.isDown("escape") then
     love.event.quit()
-  end
-  -- Move the player character
-  if love.keyboard.isDown("left") then
-    level:movePlayer(0)
-  elseif love.keyboard.isDown("up") then
-    level:movePlayer(1)
-  elseif love.keyboard.isDown("right") then
-    level:movePlayer(2)
-  elseif love.keyboard.isDown("down") then
-    level:movePlayer(3)
   end
 end
 

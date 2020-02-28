@@ -34,3 +34,15 @@ end
 function BaseObject:isDestructable()
   return self.destructable
 end
+
+function BaseObject:move(dir)
+  if dir == direction.left then
+    self.x = self.x - 1
+  elseif dir == direction.up then
+    self.y = self.y - 1
+  elseif dir == direction.right then
+    self.x = self.x + 1
+  elseif dir == direction.down then
+    self.y = self.y + 1
+  end
+end

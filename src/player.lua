@@ -16,7 +16,6 @@ function Player:new(x, y)
   self.shouldMove = false
   self.shouldMoveDirection = 0
   self.shouldMoveTimer = 0
-  self.shouldMoveDirectionIsFree = false
   
   -- Set up the movement history
   self.moveNumber = 0
@@ -42,12 +41,11 @@ function Player:draw()
   end
 end
 
-function Player:move(dir, canMove)
+function Player:move(dir)
   if not self.shouldMove and self.shouldMoveTimer <= 0 then
-    self.shouldMoveDirection = dir
     self.shouldMove = true
-    self.shouldMoveDirectionIsFree = canMove
     self.shouldMoveTimer = 0.15
+    self.shouldMoveDirection = dir
   end
 end
 
@@ -58,7 +56,7 @@ function Player:update(dt)
   self.shouldMoveTimer = self.shouldMoveTimer - dt
   if self.shouldMove then
     self.shouldMove = false
-    if self.direction ~= self.shouldMoveDirection or not self.shouldMoveDirectionIsFree then
+    if self.direction ~= self.shouldMoveDirection then
       self.direction = self.shouldMoveDirection
     else
       if self.direction == direction.left then

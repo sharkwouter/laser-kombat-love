@@ -177,13 +177,13 @@ end
 
 function Level:movePlayer(dir)
   if dir == direction.left then
-    self.player:move(dir, true)
+    self.player:move(dir)
   elseif dir == direction.up then
-    self.player:move(dir, true)
+    self.player:move(dir)
   elseif dir == direction.right then
-    self.player:move(dir, true)
+    self.player:move(dir)
   elseif dir == direction.down then
-    self.player:move(dir, true)
+    self.player:move(dir)
   end
 
   -- Make sure the player is standing in a valid place
@@ -191,10 +191,21 @@ function Level:movePlayer(dir)
   local y = self.player:getY()
 
   collisionObject = self:getObjectByLocation(x, y)
-  if collisionObject and not collisionObject:isMovable() then
-    self.player:undo()
+  if collisionObject then
+    if collisionObject:isMovable() then
+      collisionObject:move(dir)
+      if not self.terrain:isTerrain(collisionObject:getX(), collisionObject:getY()) then
+        self:destroyObject(collisionObject)
+      end
+    else
+      self.player:undo()
+    end
   elseif not self.terrain:isTerrain(x, y) then
-    self.player:die()
+    if x < 1 or x > levelWidth or y < 1 or y > levelHeight then
+      self.player:undo()
+    else
+      self.player:die()
+    end
   end
 end
 
@@ -206,6 +217,16 @@ function Level:getObjectByLocation(x, y)
     end
   end
   return nil
+end
+
+function Level:destroyObject(toDestroy)
+  local newList = {} 
+  for i=1, #self.objects do
+    if self.objects[i] ~= toDestroy then
+      newList[#newList+1] = self.objects[i]
+    end
+  end
+  self.objects = newList
 end
 
 function Level:getPlayer()
