@@ -1,12 +1,8 @@
-Tee = Object:extend()
+Tee = BaseObject:extend()
 
 function Tee:new(x, y, teeType)
-  self.x = x
-  self.y = y
-  self.type = teeType
-  if not self.type then
-    self.type = 0
-  end
+  Tee.super.new(self, x, y, true, false)
+  self.type = teeType or 0
   self.image = love.graphics.newImage("images/TEE.png")
 end
 

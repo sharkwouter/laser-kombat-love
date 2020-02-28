@@ -1,12 +1,9 @@
-Nuke= Object:extend()
+Nuke= BaseObject:extend()
 
-function Nuke:new(x, y, type)
-  self.x = x
-  self.y = y
-  self.type = type
-  if not self.type then
-    self.type = 0
-  end
+function Nuke:new(x, y, nukeType)
+  Nuke.super.new(self, x, y, true, false)
+
+  self.type = nukeType or 0
   if type == 0 then
     self.proximity = false
   else

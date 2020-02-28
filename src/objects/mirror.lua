@@ -1,12 +1,8 @@
-Mirror = Object:extend()
+Mirror = BaseObject:extend()
 
 function Mirror:new(x, y, mirrorType, direction)
-  self.x = x
-  self.y = y
-  self.type = mirrorType
-  if not self.type then
-    self.type = 0
-  end
+  Mirror.super.new(self, x, y, false, false)
+  self.type = mirrorType or 0
   self.direction = direction
   if not self.direction then
     self.direction = 0

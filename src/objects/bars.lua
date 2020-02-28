@@ -1,12 +1,8 @@
-Bars = Object:extend()
+Bars = BaseObject:extend()
 
 function Bars:new(x, y, barsType, direction)
-  self.x = x
-  self.y = y
-  self.type = barsType
-  if not self.type then
-    self.type = 0
-  end
+  Bars.super.new(self, x, y, false, false)
+  self.type = barsType or 0
   self.direction = direction
   if not self.direction then
     self.direction = 0

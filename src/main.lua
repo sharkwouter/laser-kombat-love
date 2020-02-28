@@ -5,6 +5,7 @@ function love.load()
   --Load our classes
   require "constants"
   
+  require "objects/base"
   require "objects/static"
   require "objects/redblock"
   require "objects/nuke"
