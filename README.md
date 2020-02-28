@@ -4,3 +4,9 @@ A re-implementation of the abandoned freeware game Laser Kombat in Lua using the
 I used to play this free game as a kid, but its website is no longer up and it can no longer be downloaded. Since I really enjoyed playing it, I decided to see if I can reverse engineer its levels. This repository contains the results so far.
 
 ![screenshot](src/images/MAINK.png?raw=true)
+
+## Dependencies
+This game requires Love2d version 10+ to be installed.
+
+## Running the game
+Just run ``./start.sh`` from a terminal.
