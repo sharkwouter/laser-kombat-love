@@ -60,13 +60,13 @@ function love.update(dt)
   end
   if love.keyboard.isDown("pageup") then
     if pressed == false then
-      levelNumber = levelNumber + 1
+      levelNumber = levelNumber - 1
       level = Level(levelNumber)
       pressed = true
     end
   elseif love.keyboard.isDown("pagedown") then
     if pressed == false and levelNumber > 1 then
-      levelNumber = levelNumber - 1
+      levelNumber = levelNumber + 1
       level = Level(levelNumber)
       pressed = true
     end
