@@ -11,7 +11,7 @@ function Mirror:new(x, y, mirrorType, direction)
   if not self.direction then
     self.direction = 0
   end
-  self.image = love.graphics.newImage("images/MIRROR.bmp")
+  self.image = love.graphics.newImage("images/MIRROR.png")
 end
 
 function Mirror:draw()

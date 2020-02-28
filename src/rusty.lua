@@ -12,7 +12,7 @@ function Rusty:new(x, y, rustyType)
   else
     self.animated = false
   end
-  self.image = love.graphics.newImage("images/RUSTY.bmp")
+  self.image = love.graphics.newImage("images/RUSTY.png")
 end
 
 function Rusty:draw()

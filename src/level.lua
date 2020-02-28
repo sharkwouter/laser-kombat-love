@@ -17,8 +17,8 @@ function Level:new(number)
 
   --Load the terrain images
   self.images = {
-    ground = love.graphics.newImage("images/GROUND.bmp"),
-    water = love.graphics.newImage("images/WATER.bmp")
+    ground = love.graphics.newImage("images/GROUND.png"),
+    water = love.graphics.newImage("images/WATER.png")
   }
 end
 

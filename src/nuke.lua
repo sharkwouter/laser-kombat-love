@@ -12,7 +12,7 @@ function Nuke:new(x, y, type)
   else
     self.proximity = true
   end
-  self.image = love.graphics.newImage("images/NUKE.bmp")
+  self.image = love.graphics.newImage("images/NUKE.png")
 end
 
 function Nuke:draw()

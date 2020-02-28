@@ -11,7 +11,7 @@ function Bars:new(x, y, barsType, direction)
   if not self.direction then
     self.direction = 0
   end
-  self.image = love.graphics.newImage("images/BARS.bmp")
+  self.image = love.graphics.newImage("images/BARS.png")
 end
 
 function Bars:draw()

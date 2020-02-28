@@ -25,7 +25,7 @@ function Redblock:new(x, y, type)
     self.sinkable = false
   end
 
-  self.image = love.graphics.newImage("images/REDBLOCK.bmp")
+  self.image = love.graphics.newImage("images/REDBLOCK.png")
 end
 
 function Redblock:draw()

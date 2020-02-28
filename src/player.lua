@@ -3,7 +3,7 @@ Player = Object:extend()
 function Player:new(x, y)
   self.x = x
   self.y = y
-  self.image = love.graphics.newImage("images/TANK.bmp")
+  self.image = love.graphics.newImage("images/TANK.png")
   self.direction = direction.left
 
   self.quads= {

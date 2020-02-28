@@ -7,7 +7,7 @@ function Tee:new(x, y, teeType)
   if not self.type then
     self.type = 0
   end
-  self.image = love.graphics.newImage("images/TEE.bmp")
+  self.image = love.graphics.newImage("images/TEE.png")
 end
 
 function Tee:draw()

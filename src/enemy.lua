@@ -4,7 +4,7 @@ function Enemy:new(x, y)
   self.x = x
   self.y = y
   self.direction = 0
-  self.image = love.graphics.newImage("images/TANK.bmp")
+  self.image = love.graphics.newImage("images/TANK.png")
 end
 
 function Enemy:draw()

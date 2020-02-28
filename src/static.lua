@@ -12,7 +12,7 @@ function Static:new(x, y, type)
   else
     self.animated = false
   end
-  self.image = love.graphics.newImage("images/STATIC.bmp")
+  self.image = love.graphics.newImage("images/STATIC.png")
 end
 
 function Static:draw()
