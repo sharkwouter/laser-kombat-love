@@ -4,15 +4,18 @@ function love.load()
 
   --Load our classes
   require "constants"
+  
+  require "objects/static"
+  require "objects/redblock"
+  require "objects/nuke"
+  require "objects/mirror"
+  require "objects/rusty"
+  require "objects/bars"
+  require "objects/tee"
+  
   require "player"
-  require "static"
-  require "redblock"
-  require "nuke"
   require "enemy"
-  require "mirror"
-  require "rusty"
-  require "bars"
-  require "tee"
+
   require "level"
 
   -- Configure the window
