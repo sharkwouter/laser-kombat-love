@@ -10,3 +10,6 @@ This game requires Love2d version 10+ to be installed.
 
 ## Running the game
 Just run ``./start.sh`` from a terminal.
+
+## Getting the original game
+The original game is currently only available through [the wayback machine](https://web.archive.org/web/20051210131238/http://www.olympus.net/personal/dewey/laser/).
