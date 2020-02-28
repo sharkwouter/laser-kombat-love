@@ -13,7 +13,7 @@ function Terrain:new(groundList)
         -- First check which sides around the current pieces are free
         local leftFree, upFree, rightFree, downFree = false, false, false, false
         if x > 1 and not groundList[x-1][y] then
-          lefFree = true
+          leftFree = true
         end
         if x < levelWidth and not groundList[x+1][y] then
           rightFree = true
@@ -27,7 +27,10 @@ function Terrain:new(groundList)
         
         -- Pick an image based on the free sides
         if leftFree and rightFree and upFree and downFree then
-          self.tileList[x][y] = 2
+          self.tileList[x][y] = 0
+        elseif leftFree or rightFree or upFree or downFree then
+          -- These are all edge cases, if you know what I mean
+          self.tileList[x][y] = 7
         else
           self.tileList[x][y] = 7
         end
@@ -39,7 +42,7 @@ end
 function Terrain:draw()
   for x=1, #self.tileList do
     for y=1, #self.tileList[x] do
-      if self.tileList[x][y] > 0 then
+      if self.tileList[x][y] >= 0 then
         love.graphics.draw(self.image, love.graphics.newQuad(gridSize*self.tileList[x][y], gridSize*3, gridSize, gridSize, self.image:getDimensions()), (x-1)*gridSize, (y-1)*gridSize)
       end
     end
