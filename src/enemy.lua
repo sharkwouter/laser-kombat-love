@@ -5,6 +5,8 @@ function Enemy:new(x, y)
   self.y = y
   self.direction = 0
   self.image = love.graphics.newImage("images/TANK.png")
+  self.animationDuration = 1
+  self.animationTimer = self.animationDuration + math.random(100)/100
 end
 
 function Enemy:draw()
@@ -12,4 +14,12 @@ function Enemy:draw()
 end
 
 function Enemy:update(dt)
+  self.animationTimer = self.animationTimer -dt
+  if self.animationTimer < 0 then
+    local turn = math.random(20)
+    if turn < 4 then
+      self.direction = turn
+    end
+    self.animationTimer = self.animationDuration
+  end
 end

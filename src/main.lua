@@ -22,6 +22,8 @@ function love.load()
   love.window.setMode(gridSize*20, gridSize*15)
   love.window.setTitle("Laser Kombat")
 
+  math.randomseed(os.time())
+
   --Load the level
   levelNumber = 1
   level = Level(levelNumber)
