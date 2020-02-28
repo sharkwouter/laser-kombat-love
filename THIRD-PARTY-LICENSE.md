@@ -23,6 +23,10 @@ SOFTWARE.
 
 ---------
 
+# This software includes images from the game Laser Kombat
+
+Laser Kombat is a freeware game made by David Dewey. The images used in this project are owned by him, but may be freely redistributed. Please contant me at wwijsman@live.nl if you do not wish for these to be included.
+
 # This software includes maps made by others for the game Laser Kombat
 
 These levels had no copyright notice or license included with the game, but the authors and level names are listed below. Please contact me if you are one of these authors and do not wish your levels to be available here.
