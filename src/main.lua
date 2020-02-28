@@ -17,10 +17,11 @@ function love.load()
   require "player"
   require "enemy"
 
+  require "terrain"
   require "level"
 
   -- Configure the window
-  love.window.setMode(gridSize*20, gridSize*15)
+  love.window.setMode(gridSize*levelWidth, gridSize*levelHeight)
   love.window.setTitle("Laser Kombat")
 
   math.randomseed(os.time())
@@ -45,6 +46,11 @@ function love.update(dt)
     if pressed == false then
       levelNumber = levelNumber + 1
       level = Level(levelNumber)
+      pressed = true
+    end
+  elseif love.keyboard.isDown("u") then
+    if pressed == false then
+      level:undo()
       pressed = true
     end
   else

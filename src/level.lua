@@ -16,13 +16,10 @@ function Level:new(number)
   --Create variables for all
   self.objects = self:loadObjects(file)
   self.enemies = self:loadEnemies(file)
-  self.terrain = self:loadTerrain(file)
+  self.terrain = Terrain(self:loadTerrain(file))
 
   --Load the terrain images
-  self.images = {
-    ground = love.graphics.newImage("images/GROUND.png"),
-    water = love.graphics.newImage("images/WATER.png")
-  }
+  self.backgroundImage = love.graphics.newImage("images/WATER.png")
 end
 
 function Level:getAuthor()
@@ -47,7 +44,7 @@ end
 function Level:animateBackground(dt)
   self.animationTimer = self.animationTimer - dt
   if self.animationTimer < 0 then
-    if self.backgroundX < self.images.water:getWidth() then
+    if self.backgroundX < self.backgroundImage:getWidth() then
       self.backgroundX = self.backgroundX + 1
     else
       self.backgroundX = 0
@@ -57,8 +54,8 @@ function Level:animateBackground(dt)
 end
 
 function Level:draw()
-  self:drawWater()
-  self:drawTerrain()
+  self:drawBackground()
+  self.terrain:draw()
   for i=1, #self.objects do
     self.objects[i]:draw()
   end
@@ -68,22 +65,10 @@ function Level:draw()
   self.player:draw()
 end
 
-function Level:drawWater()
-   for i = -1, (love.graphics.getWidth() + self.backgroundX) / self.images.water:getWidth() do
-    for j = 0, love.graphics.getHeight() / self.images.water:getHeight() do
-        love.graphics.draw(self.images.water, i * self.images.water:getWidth() + self.backgroundX, j * self.images.water:getHeight())
-    end
-  end
-end
-
-function Level:drawTerrain()
-  groundQuad = love.graphics.newQuad(gridSize*7, gridSize*3, gridSize, gridSize, self.images.ground:getDimensions())
-
-  for x=1, #self.terrain do
-    for y=1, #self.terrain[x] do
-      if self.terrain[x][y] then
-        love.graphics.draw(self.images.ground, groundQuad, (x-1)*gridSize, (y-1)*gridSize)
-      end
+function Level:drawBackground()
+   for i = -1, (love.graphics.getWidth() + self.backgroundX) / self.backgroundImage:getWidth() do
+    for j = 0, love.graphics.getHeight() / self.backgroundImage:getHeight() do
+        love.graphics.draw(self.backgroundImage, i * self.backgroundImage:getWidth() + self.backgroundX, j * self.backgroundImage:getHeight())
     end
   end
 end
@@ -191,27 +176,25 @@ function Level:loadEnemies(file)
 end
 
 function Level:movePlayer(dir)
+  if dir == direction.left then
+    self.player:move(dir, true)
+  elseif dir == direction.up then
+    self.player:move(dir, true)
+  elseif dir == direction.right then
+    self.player:move(dir, true)
+  elseif dir == direction.down then
+    self.player:move(dir, true)
+  end
+
+  -- Make sure the player is standing in a valid place
   local x = self.player:getX()
   local y = self.player:getY()
-  
-  if dir == direction.left and self:isTerrain(x-1, y) then
-    self.player:move(dir, true)
-  elseif dir == direction.up and self:isTerrain(x, y-1) then
-    self.player:move(dir, true)
-  elseif dir == direction.right and self:isTerrain(x+1, y) then
-    self.player:move(dir, true)
-  elseif dir == direction.down and self:isTerrain(x, y+1) then
-    self.player:move(dir, true)
-  else
-    self.player:move(dir, false)
-  end
-end
 
-function Level:isTerrain(x, y)
-  if 1 <= x and x <= #self.terrain and 1 <= y and y <= #self.terrain[x] then
-    return self.terrain[x][y]
-  else
-    return false
+  collisionObject = self:getObjectByLocation(x, y)
+  if collisionObject and not collisionObject:isMovable() then
+    self.player:undo()
+  elseif not self.terrain:isTerrain(x, y) then
+    self.player:die()
   end
 end
 
@@ -227,4 +210,8 @@ end
 
 function Level:getPlayer()
   return self.player
+end
+
+function Level:undo()
+  self.player:undo()
 end

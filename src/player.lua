@@ -13,18 +13,24 @@ function Player:new(x, y)
     down = love.graphics.newQuad(gridSize*direction.down, 0, gridSize, gridSize, self.image:getDimensions())
   }
 
-  self.respawn = {
-    x = self.x,
-    y = self.y
-  }
-
   self.shouldMove = false
   self.shouldMoveDirection = 0
   self.shouldMoveTimer = 0
   self.shouldMoveDirectionIsFree = false
+  
+  -- Set up the movement history
+  self.moveNumber = 0
+  self.historyX = {}
+  self.historyY = {}
+  self:updateHistory()
+  
+  self.dead = false
 end
 
 function Player:draw()
+  if self.dead then
+    return
+  end
   if self.direction == direction.left then
     love.graphics.draw(self.image, self.quads.left, (self.x-1)*gridSize, (self.y-1)*gridSize)
   elseif self.direction == direction.up then
@@ -46,6 +52,9 @@ function Player:move(dir, canMove)
 end
 
 function Player:update(dt)
+  if self.dead then
+    return
+  end
   self.shouldMoveTimer = self.shouldMoveTimer - dt
   if self.shouldMove then
     self.shouldMove = false
@@ -61,7 +70,23 @@ function Player:update(dt)
       elseif self.direction == direction.down then
         self.y = self.y + 1
       end
+      self:updateHistory()
     end
+  end
+end
+
+function Player:updateHistory()
+  self.moveNumber = self.moveNumber + 1
+  self.historyX[self.moveNumber] = self.x
+  self.historyY[self.moveNumber] = self.y
+end
+
+function Player:undo()
+  if self.moveNumber > 1 then
+    self.moveNumber = self.moveNumber - 1
+    self.x = self.historyX[self.moveNumber]
+    self.y = self.historyY[self.moveNumber]
+    self.dead = false
   end
 end
 
@@ -71,4 +96,12 @@ end
 
 function Player:getY()
   return self.y
+end
+
+function Player:die()
+  self.dead = true
+end
+
+function Player.isDead()
+  return self.dead
 end
