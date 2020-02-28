@@ -48,6 +48,10 @@ function love.update(dt)
     pressed = false
   end
   
+  
+  if love.keyboard.isDown("escape") then
+    love.event.quit()
+  end
   -- Move the player character
   if love.keyboard.isDown("left") then
     level:movePlayer(0)
