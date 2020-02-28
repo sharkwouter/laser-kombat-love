@@ -15,7 +15,7 @@ function Bars:new(x, y, barsType, direction)
 end
 
 function Bars:draw()
-  love.graphics.draw(self.image, love.graphics.newQuad(self.direction*40,self.type*40,40,40,self.image:getDimensions()), (self.x-1)*40, (self.y-1)*40)
+  love.graphics.draw(self.image, love.graphics.newQuad(self.direction*gridSize,self.type*gridSize,gridSize,gridSize,self.image:getDimensions()), (self.x-1)*gridSize, (self.y-1)*gridSize)
 end
 
 function Bars:update(dt)

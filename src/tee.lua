@@ -11,7 +11,7 @@ function Tee:new(x, y, teeType)
 end
 
 function Tee:draw()
-  love.graphics.draw(self.image, love.graphics.newQuad(40*self.type,0,40,40,self.image:getDimensions()), (self.x-1)*40, (self.y-1)*40)
+  love.graphics.draw(self.image, love.graphics.newQuad(gridSize*self.type,0,gridSize,gridSize,self.image:getDimensions()), (self.x-1)*gridSize, (self.y-1)*gridSize)
 end
 
 function Tee:update(dt)

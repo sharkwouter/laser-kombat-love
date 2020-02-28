@@ -29,7 +29,7 @@ function Redblock:new(x, y, type)
 end
 
 function Redblock:draw()
-  love.graphics.draw(self.image, love.graphics.newQuad(self.type*40,0,40,40,self.image:getDimensions()), (self.x-1)*40, (self.y-1)*40)
+  love.graphics.draw(self.image, love.graphics.newQuad(self.type*gridSize,0,gridSize,gridSize,self.image:getDimensions()), (self.x-1)*gridSize, (self.y-1)*gridSize)
 end
 
 function Redblock:update(dt)

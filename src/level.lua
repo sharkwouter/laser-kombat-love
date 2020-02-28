@@ -32,8 +32,11 @@ end
 
 function Level:update(dt)
   self.player:update(dt)
-  for x=1, #self.objects do
-        self.objects[i]:update(dt)
+  for i=1, #self.objects do
+    self.objects[i]:update(dt)
+  end
+  for i=1, #self.enemies do
+    self.enemies[i]:update(dt)
   end
 end
 
@@ -58,12 +61,12 @@ function Level:drawWater()
 end
 
 function Level:drawTerrain()
-  groundQuad = love.graphics.newQuad(40*7, 40*3, 40, 40, self.images.ground:getDimensions())
+  groundQuad = love.graphics.newQuad(gridSize*7, gridSize*3, gridSize, gridSize, self.images.ground:getDimensions())
 
   for x=1, #self.terrain do
     for y=1, #self.terrain[x] do
       if self.terrain[x][y] then
-        love.graphics.draw(self.images.ground, groundQuad, (x-1)*40, (y-1)*40)
+        love.graphics.draw(self.images.ground, groundQuad, (x-1)*gridSize, (y-1)*gridSize)
       end
     end
   end
@@ -171,6 +174,41 @@ function Level:loadEnemies(file)
   return list
 end
 
-function Level:drawCoorts()
+function Level:movePlayer(dir)
+  local x = self.player:getX()
+  local y = self.player:getY()
   
+  if dir == direction.left and self:isTerrain(x-1, y) then
+    self.player:move(dir, true)
+  elseif dir == direction.up and self:isTerrain(x, y-1) then
+    self.player:move(dir, true)
+  elseif dir == direction.right and self:isTerrain(x+1, y) then
+    self.player:move(dir, true)
+  elseif dir == direction.down and self:isTerrain(x, y+1) then
+    self.player:move(dir, true)
+  else
+    self.player:move(dir, false)
+  end
+end
+
+function Level:isTerrain(x, y)
+  if 1 <= x and x <= #self.terrain and 1 <= y and y <= #self.terrain[x] then
+    return self.terrain[x][y]
+  else
+    return false
+  end
+end
+
+function Level:getObjectByLocation(x, y)
+  for i=1, #self.objects do
+    foundObject = self.objects[i]
+    if foundObject:getX() == x and foundObject:getY() == y then
+      return foundObject
+    end
+  end
+  return nil
+end
+
+function Level:getPlayer()
+  return self.player
 end
