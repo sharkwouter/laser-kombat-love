@@ -8,6 +8,9 @@ function Level:new(number)
 
   self.description = string.sub(file, 6009, 6259)
   self.author = string.sub(file, 6265)
+  self.animationDuration = 1/30
+  self.animationTimer = self.animationDuration
+  self.backgroundX = 0
   print(self.description)
 
   --Create variables for all
@@ -31,12 +34,25 @@ function Level:getDescription()
 end
 
 function Level:update(dt)
+  self:animateBackground(dt)
   self.player:update(dt)
   for i=1, #self.objects do
     self.objects[i]:update(dt)
   end
   for i=1, #self.enemies do
     self.enemies[i]:update(dt)
+  end
+end
+
+function Level:animateBackground(dt)
+  self.animationTimer = self.animationTimer - dt
+  if self.animationTimer < 0 then
+    if self.backgroundX < self.images.water:getWidth() then
+      self.backgroundX = self.backgroundX + 1
+    else
+      self.backgroundX = 0
+    end
+    self.animationTimer = self.animationDuration
   end
 end
 
@@ -53,9 +69,9 @@ function Level:draw()
 end
 
 function Level:drawWater()
-   for i = 0, love.graphics.getWidth() / self.images.water:getWidth() do
+   for i = -1, (love.graphics.getWidth() + self.backgroundX) / self.images.water:getWidth() do
     for j = 0, love.graphics.getHeight() / self.images.water:getHeight() do
-        love.graphics.draw(self.images.water, i * self.images.water:getWidth(), j * self.images.water:getHeight())
+        love.graphics.draw(self.images.water, i * self.images.water:getWidth() + self.backgroundX, j * self.images.water:getHeight())
     end
   end
 end
